@@ -3,6 +3,8 @@ import { Calendar, Clock, ArrowLeft, Check } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { format, addDays, startOfToday } from 'date-fns';
 
 interface Service {
@@ -22,6 +24,11 @@ interface BookingCalendarProps {
 const BookingCalendar = ({ service, onBack }: BookingCalendarProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [userDetails, setUserDetails] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
 
   // Generate next 14 days
   const today = startOfToday();
@@ -49,8 +56,20 @@ const BookingCalendar = ({ service, onBack }: BookingCalendarProps) => {
 
   const handleBooking = () => {
     if (selectedDate && selectedTime) {
+      if (!userDetails.name || !userDetails.email || !userDetails.phone) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
       // Handle booking logic here
-      alert(`Booking confirmed for ${service.title} on ${format(selectedDate, 'PPP')} at ${selectedTime}`);
+      alert(
+        `Booking confirmed for ${service.title}\n` +
+        `Date: ${format(selectedDate, 'PPP')}\n` +
+        `Time: ${timeSlots.find(slot => slot.value === selectedTime)?.display}\n` +
+        `Name: ${userDetails.name}\n` +
+        `Email: ${userDetails.email}\n` +
+        `Phone: ${userDetails.phone}`
+      );
     }
   };
 
@@ -153,7 +172,7 @@ const BookingCalendar = ({ service, onBack }: BookingCalendarProps) => {
         <Card className="card-elevated mt-6">
           <div className="p-6">
             <h3 className="text-xl font-semibold text-heading mb-4">Confirm Booking</h3>
-            <div className="bg-primary/5 rounded-lg p-4 mb-4">
+            <div className="bg-primary/5 rounded-lg p-4 mb-6">
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="text-muted">Service:</span>
@@ -175,6 +194,49 @@ const BookingCalendar = ({ service, onBack }: BookingCalendarProps) => {
                 </div>
               </div>
             </div>
+
+            {/* User Details Form */}
+            <div className="space-y-4 mb-6">
+              <h4 className="font-medium">Your Details</h4>
+              <div className="space-y-4">
+                <div className="grid w-full items-center gap-1.5">
+                  <Label htmlFor="name">Full Name</Label>
+                  <Input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name"
+                    value={userDetails.name}
+                    onChange={(e) => setUserDetails(prev => ({ ...prev, name: e.target.value }))}
+                    required
+                  />
+                </div>
+
+                <div className="grid w-full items-center gap-1.5">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    value={userDetails.email}
+                    onChange={(e) => setUserDetails(prev => ({ ...prev, email: e.target.value }))}
+                    required
+                  />
+                </div>
+
+                <div className="grid w-full items-center gap-1.5">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  <Input
+                    type="tel"
+                    id="phone"
+                    placeholder="Enter your phone number"
+                    value={userDetails.phone}
+                    onChange={(e) => setUserDetails(prev => ({ ...prev, phone: e.target.value }))}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold text-primary">
                 Total: ${service.price}

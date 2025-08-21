@@ -34,7 +34,7 @@ const ServiceGrid = ({ services, onServiceSelect }: ServiceGridProps) => {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                <span>{service.duration}</span>
+                <span>{service.duration} minutes</span>
               </div>
               <div className="text-2xl font-bold text-primary">
                 ${service.price}

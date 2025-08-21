@@ -3,8 +3,12 @@ import { MessageCircle, X, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { MaestroProfile } from '@/types/maestro';
 
-const ChatButton = () => {
+interface Profile {
+  profile: MaestroProfile;
+}
+const ChatButton = ({ profile }: Profile) => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -31,7 +35,7 @@ const ChatButton = () => {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-border">
               <div>
-                <h3 className="font-semibold text-heading">Chat with Alex</h3>
+                <h3 className="font-semibold text-heading">Chat with {profile.name}</h3>
                 <p className="text-sm text-muted">Usually responds in a few minutes</p>
               </div>
               <Button
@@ -47,7 +51,7 @@ const ChatButton = () => {
             {/* Messages */}
             <div className="flex-1 p-4 overflow-y-auto">
               <div className="bg-primary/10 rounded-lg p-3 mb-3">
-                <p className="text-sm">Hi! I'm Alex Morgan. How can I help you today?</p>
+                <p className="text-sm">Hi! I'm {profile.name}. How can I help you today?</p>
               </div>
             </div>
 

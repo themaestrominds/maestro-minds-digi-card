@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMaestroProfile } from '@/store/maestroSlice';
 import { RootState } from '@/store';
+import { AppLoader } from '@/components/AppLoader';
 
 const Index = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Index = () => {
     }
   }, [dispatch]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <AppLoader />;
   if (error) return <div>Error: {error}</div>;
   if (!profile) return <div>No profile found</div>;
   if (profile.length === 0) {

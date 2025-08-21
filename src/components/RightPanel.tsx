@@ -66,7 +66,7 @@ const RightPanel = ({ profile }: RightPanelProps) => {
         )}
       </div>
       
-      <ChatButton />
+      <ChatButton profile={profile}/>
     </div>
   );
 };

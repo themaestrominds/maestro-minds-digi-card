@@ -26,7 +26,7 @@ const LeftPanel = ({ profile }: LeftPanelProps) => {
           <div className="relative mb-4">
             <img
               src={profile.profile_image_url}
-              alt="Alex Morgan - Business Consultant"
+              alt="Business Consultant"
               className="w-40 h-40 mx-auto rounded-full object-cover shadow-[var(--shadow-medium)]"
             />
             <div className="absolute -bottom-2 -right-2 bg-success rounded-full p-2">
@@ -47,12 +47,12 @@ const LeftPanel = ({ profile }: LeftPanelProps) => {
             <span className="text-sm font-medium ml-1">4.9/5</span>
           </div>
           
-          <div className="flex items-center justify-center gap-4 text-sm text-muted">
+          <div className="flex items-center justify-center gap-4 text-sm">
             <div className="flex items-center gap-1">
               <Award className="w-4 h-4 text-success" />
-              <span>Certified</span>
+              <span>IRCC Certified</span>
             </div>
-            <span>127 reviews</span>
+            <span>Experience: {profile.experience} years</span>
           </div>
         </div>
       </Card>
@@ -104,6 +104,7 @@ const LeftPanel = ({ profile }: LeftPanelProps) => {
           </div>
         </div>
       </Card>
+      <p className="text-center font-bold text-sm mt-4">Powered by Immigos</p>
     </div>
   );
 };
